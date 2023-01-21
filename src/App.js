@@ -1,24 +1,22 @@
-import logo from './logo.svg';
-import './App.css';
+import TodoHeader from "./Components/TodoHeader";
+import TodoTable from "./Components/TodoTable";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
 
 function App() {
+  const todo = useSelector(state => state.todo)
+
+  useEffect(() => {fetch('https://react-todo-app-439d1-default-rtdb.firebaseio.com/todosdata.json',
+    {
+      method: 'PUT',
+      body: JSON.stringify(todo)
+    })},[todo])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <TodoHeader />
+      <TodoTable />
+    </>
   );
 }
 
